@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="AssurancePU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>assurance.Souscripteur</class>
+    <class>jpa.Energie</class>
+    <class>jpa.Puissance</class>
+    <class>jpa.MotoType</class>
+    <class>jpa.Moto</class>
+    <class>jpa.Type</class>
+    <class>jpa.Vehicule</class>
+    <class>jpa.Piece</class>
+    <class>jpa.Zone</class>
+    <class>jpa.Classe</class>
+    <class>jpa.Groupe</class>
+    <class>jpa.CompagnieGarantie</class>
+    <class>jpa.Souscripteurs</class>
+    <class>jpa.Saisie</class>
+    <class>jpa.Garantie</class>
+    <class>jpa.CompagieGarantie</class>
+    <class>jpa.NumeroPolice</class>
+    <class>jpa.Compagnie</class>
+    <class>jpa.IndicatifPolice</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/assurance?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="assurance"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value="assurance"/>
+    </properties>
+  </persistence-unit>
+</persistence>

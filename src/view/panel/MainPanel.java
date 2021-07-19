@@ -28,6 +28,10 @@ import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 import static main.Assurances.getController;
 import static main.Assurances.getUser;
+import view.dialog.CompagnieDialog;
+import view.dialog.CompagnieGarantieDialog;
+import view.dialog.GarantieDialog;
+import view.dialog.PoliceDialog;
 import view.dialog.SouscripteurDialog;
 
 /**
@@ -60,6 +64,22 @@ public class MainPanel extends javax.swing.JPanel {
         popup_menu_souscripteur_update = new javax.swing.JMenuItem();
         popup_menu_souscripteur_remove = new javax.swing.JMenuItem();
         buttonGroup = new javax.swing.ButtonGroup();
+        popup_compagnie = new javax.swing.JPopupMenu();
+        popup_menu_compagnie_add = new javax.swing.JMenuItem();
+        popup_menu_compagnie_update = new javax.swing.JMenuItem();
+        popup_menu_compagnie_remove = new javax.swing.JMenuItem();
+        popup_garantie = new javax.swing.JPopupMenu();
+        popup_menu_garantie_add = new javax.swing.JMenuItem();
+        popup_menu_garantie_update = new javax.swing.JMenuItem();
+        popup_menu_garantie_remove = new javax.swing.JMenuItem();
+        popup_compagnie_police = new javax.swing.JPopupMenu();
+        popup_menu_compagnie_police_add = new javax.swing.JMenuItem();
+        popup_menu_compagnie_police_update = new javax.swing.JMenuItem();
+        popup_menu_compagnie_police_remove = new javax.swing.JMenuItem();
+        popup_compagnie_garantie = new javax.swing.JPopupMenu();
+        popup_menu_compagnie_garantie_add = new javax.swing.JMenuItem();
+        popup_menu_compagnie_garantie_update = new javax.swing.JMenuItem();
+        popup_menu_compagnie_garantie_remove = new javax.swing.JMenuItem();
         tabbedPane = new javax.swing.JTabbedPane();
         panel_souscripteur = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -128,6 +148,102 @@ public class MainPanel extends javax.swing.JPanel {
             }
         });
         popup_souscripteur.add(popup_menu_souscripteur_remove);
+
+        popup_menu_compagnie_add.setText("Ajouter compagnie");
+        popup_menu_compagnie_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_addActionPerformed(evt);
+            }
+        });
+        popup_compagnie.add(popup_menu_compagnie_add);
+
+        popup_menu_compagnie_update.setText("Mettre à jour compagnie");
+        popup_menu_compagnie_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_updateActionPerformed(evt);
+            }
+        });
+        popup_compagnie.add(popup_menu_compagnie_update);
+
+        popup_menu_compagnie_remove.setText("Suprimer compagnie");
+        popup_menu_compagnie_remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_removeActionPerformed(evt);
+            }
+        });
+        popup_compagnie.add(popup_menu_compagnie_remove);
+
+        popup_menu_garantie_add.setText("Ajouter garantie");
+        popup_menu_garantie_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_garantie_addActionPerformed(evt);
+            }
+        });
+        popup_garantie.add(popup_menu_garantie_add);
+
+        popup_menu_garantie_update.setText("Mettre à jour garantie");
+        popup_menu_garantie_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_garantie_updateActionPerformed(evt);
+            }
+        });
+        popup_garantie.add(popup_menu_garantie_update);
+
+        popup_menu_garantie_remove.setText("Suprimer garantie");
+        popup_menu_garantie_remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_garantie_removeActionPerformed(evt);
+            }
+        });
+        popup_garantie.add(popup_menu_garantie_remove);
+
+        popup_menu_compagnie_police_add.setText("Ajouter compagnie police");
+        popup_menu_compagnie_police_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_police_addActionPerformed(evt);
+            }
+        });
+        popup_compagnie_police.add(popup_menu_compagnie_police_add);
+
+        popup_menu_compagnie_police_update.setText("Mettre à jour compagnie police");
+        popup_menu_compagnie_police_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_police_updateActionPerformed(evt);
+            }
+        });
+        popup_compagnie_police.add(popup_menu_compagnie_police_update);
+
+        popup_menu_compagnie_police_remove.setText("Suprimer compagnie police");
+        popup_menu_compagnie_police_remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_police_removeActionPerformed(evt);
+            }
+        });
+        popup_compagnie_police.add(popup_menu_compagnie_police_remove);
+
+        popup_menu_compagnie_garantie_add.setText("Ajouter compagnie garantie");
+        popup_menu_compagnie_garantie_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_garantie_addActionPerformed(evt);
+            }
+        });
+        popup_compagnie_garantie.add(popup_menu_compagnie_garantie_add);
+
+        popup_menu_compagnie_garantie_update.setText("Mettre à jour compagnie garantie");
+        popup_menu_compagnie_garantie_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_garantie_updateActionPerformed(evt);
+            }
+        });
+        popup_compagnie_garantie.add(popup_menu_compagnie_garantie_update);
+
+        popup_menu_compagnie_garantie_remove.setText("Suprimer compagnie garantie");
+        popup_menu_compagnie_garantie_remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_garantie_removeActionPerformed(evt);
+            }
+        });
+        popup_compagnie_garantie.add(popup_menu_compagnie_garantie_remove);
 
         jLabel1.setText("Rechercher");
 
@@ -371,9 +487,6 @@ public class MainPanel extends javax.swing.JPanel {
             table_compagnie_garantie.getColumnModel().getColumn(0).setMinWidth(35);
             table_compagnie_garantie.getColumnModel().getColumn(0).setPreferredWidth(35);
             table_compagnie_garantie.getColumnModel().getColumn(0).setMaxWidth(35);
-            table_compagnie_garantie.getColumnModel().getColumn(2).setMinWidth(100);
-            table_compagnie_garantie.getColumnModel().getColumn(2).setPreferredWidth(100);
-            table_compagnie_garantie.getColumnModel().getColumn(2).setMaxWidth(100);
             table_compagnie_garantie.getColumnModel().getColumn(3).setMinWidth(100);
             table_compagnie_garantie.getColumnModel().getColumn(3).setPreferredWidth(100);
             table_compagnie_garantie.getColumnModel().getColumn(3).setMaxWidth(100);
@@ -724,6 +837,54 @@ public class MainPanel extends javax.swing.JPanel {
         updateTablePrime();
     }//GEN-LAST:event_combo_puissanceActionPerformed
 
+    private void popup_menu_compagnie_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_addActionPerformed
+        ajout_compagnie();
+    }//GEN-LAST:event_popup_menu_compagnie_addActionPerformed
+
+    private void popup_menu_compagnie_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_updateActionPerformed
+        mettre_a_jour_compagnie(table_compagnie.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_compagnie_updateActionPerformed
+
+    private void popup_menu_compagnie_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_removeActionPerformed
+        suprimer_compagnie(table_compagnie.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_compagnie_removeActionPerformed
+
+    private void popup_menu_garantie_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_garantie_addActionPerformed
+        ajout_garantie();
+    }//GEN-LAST:event_popup_menu_garantie_addActionPerformed
+
+    private void popup_menu_garantie_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_garantie_updateActionPerformed
+        mettre_a_jour_garantie(table_garantie.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_garantie_updateActionPerformed
+
+    private void popup_menu_garantie_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_garantie_removeActionPerformed
+        suprimer_garantie(table_garantie.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_garantie_removeActionPerformed
+
+    private void popup_menu_compagnie_police_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_police_addActionPerformed
+        ajout_police();
+    }//GEN-LAST:event_popup_menu_compagnie_police_addActionPerformed
+
+    private void popup_menu_compagnie_police_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_police_updateActionPerformed
+        mettre_a_jour_police(table_compagnie_police.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_compagnie_police_updateActionPerformed
+
+    private void popup_menu_compagnie_police_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_police_removeActionPerformed
+        suprimer_police(table_compagnie_police.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_compagnie_police_removeActionPerformed
+
+    private void popup_menu_compagnie_garantie_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_garantie_addActionPerformed
+        ajout_compagnie_garantie();
+    }//GEN-LAST:event_popup_menu_compagnie_garantie_addActionPerformed
+
+    private void popup_menu_compagnie_garantie_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_garantie_updateActionPerformed
+        mettre_a_jour_compagnie_garantie(table_compagnie_garantie.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_compagnie_garantie_updateActionPerformed
+
+    private void popup_menu_compagnie_garantie_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_garantie_removeActionPerformed
+        suprimer_compagnie_garantie(table_compagnie_garantie.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_compagnie_garantie_removeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ajouter_souscripteur;
     private javax.swing.JButton btn_mettre_a_jour_souscripteur;
@@ -754,6 +915,22 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panel_compagnie_police;
     private javax.swing.JPanel panel_prime;
     private javax.swing.JPanel panel_souscripteur;
+    private javax.swing.JPopupMenu popup_compagnie;
+    private javax.swing.JPopupMenu popup_compagnie_garantie;
+    private javax.swing.JPopupMenu popup_compagnie_police;
+    private javax.swing.JPopupMenu popup_garantie;
+    private javax.swing.JMenuItem popup_menu_compagnie_add;
+    private javax.swing.JMenuItem popup_menu_compagnie_garantie_add;
+    private javax.swing.JMenuItem popup_menu_compagnie_garantie_remove;
+    private javax.swing.JMenuItem popup_menu_compagnie_garantie_update;
+    private javax.swing.JMenuItem popup_menu_compagnie_police_add;
+    private javax.swing.JMenuItem popup_menu_compagnie_police_remove;
+    private javax.swing.JMenuItem popup_menu_compagnie_police_update;
+    private javax.swing.JMenuItem popup_menu_compagnie_remove;
+    private javax.swing.JMenuItem popup_menu_compagnie_update;
+    private javax.swing.JMenuItem popup_menu_garantie_add;
+    private javax.swing.JMenuItem popup_menu_garantie_remove;
+    private javax.swing.JMenuItem popup_menu_garantie_update;
     private javax.swing.JMenuItem popup_menu_souscripteur_add;
     private javax.swing.JMenuItem popup_menu_souscripteur_remove;
     private javax.swing.JMenuItem popup_menu_souscripteur_update;
@@ -801,6 +978,18 @@ public class MainPanel extends javax.swing.JPanel {
     private void initPop() {
         addPopup(table_souscripteur, popup_souscripteur);
         addPopup(scrollPane_souscripteur, popup_souscripteur);
+
+        addPopup(table_compagnie, popup_compagnie);
+        addPopup(scrollPane_compagnie, popup_compagnie);
+
+        addPopup(table_garantie, popup_garantie);
+        addPopup(scrollPane_garantie, popup_garantie);
+
+        addPopup(table_compagnie_police, popup_compagnie_police);
+        addPopup(scrollPane_compagnie_police, popup_compagnie_police);
+
+        addPopup(table_compagnie_garantie, popup_compagnie_garantie);
+        addPopup(scrollPane_compagnie_garantie, popup_compagnie_garantie);
     }
 
     private void initTable() {
@@ -898,7 +1087,7 @@ public class MainPanel extends javax.swing.JPanel {
             Object colonne[] = new Object[5];
             colonne[0] = i + 1;
             colonne[1] = getController().getUsageController().getUsage(list.get(i).getId_usage()).getUsage();
-            colonne[1] = getController().getCompagnieController().getCompagnie(list.get(i).getId_compagnie()).getCompagnie();
+            colonne[2] = getController().getCompagnieController().getCompagnie(list.get(i).getId_compagnie()).getCompagnie();
             colonne[3] = list.get(i).getPolice();
             colonne[4] = list.get(i).getId();
             model.addRow(colonne);
@@ -914,6 +1103,169 @@ public class MainPanel extends javax.swing.JPanel {
         SouscripteurDialog souscripteurDialog = new SouscripteurDialog(null, true);
         souscripteurDialog.setVisible(true);
         updateTableSouscripteur();
+    }
+
+    private void ajout_compagnie() {
+        if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+            droit_administration();
+            return;
+        }
+        CompagnieDialog compagnieDialog = new CompagnieDialog(null, true);
+        compagnieDialog.setVisible(true);
+        updateTableCompagnie();
+        initCBCompagnie();
+    }
+
+    private void suprimer_compagnie(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+                droit_administration();
+                return;
+            }
+            String nom_compagnie = table_compagnie.getValueAt(row, table_compagnie.getColumnCount() - 1).toString();
+            Compagnie compagnie = getController().getCompagnieController().getCompagnie(nom_compagnie);
+            int choice = JOptionPane.showConfirmDialog(this, "Etes vous sure de vouloir suprimer la compagnie " + compagnie.getCompagnie() + " ?", "Action irréversible", JOptionPane.YES_NO_OPTION);
+            if (choice == 0) {
+                getController().getCompagnieController().removeCompagnie(compagnie.getId());
+                updateTableCompagnie();
+                initCBCompagnie();
+            }
+        }
+    }
+
+    private void mettre_a_jour_compagnie(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+                droit_administration();
+                return;
+            }
+            String compagnie = table_compagnie.getValueAt(row, table_compagnie.getColumnCount() - 1).toString();
+            CompagnieDialog compagnieDialog = new CompagnieDialog(null, true, getController().getCompagnieController().getCompagnie(compagnie));
+            compagnieDialog.setVisible(true);
+            updateTableCompagnie();
+            initCBCompagnie();
+        }
+
+    }
+
+    private void ajout_garantie() {
+        if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+            droit_administration();
+            return;
+        }
+        GarantieDialog garantieDialog = new GarantieDialog(null, true);
+        garantieDialog.setVisible(true);
+        updateTableGarantie();
+    }
+
+    private void mettre_a_jour_garantie(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+                droit_administration();
+                return;
+            }
+            String garantie = table_garantie.getValueAt(row, table_garantie.getColumnCount() - 1).toString();
+            GarantieDialog garantieDialog = new GarantieDialog(null, true, getController().getGarantieController().getGarantie(garantie));
+            garantieDialog.setVisible(true);
+            updateTableGarantie();
+        }
+
+    }
+
+    private void suprimer_garantie(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+                droit_administration();
+                return;
+            }
+            String nom_garantie = table_garantie.getValueAt(row, table_garantie.getColumnCount() - 1).toString();
+            Garantie garantie = getController().getGarantieController().getGarantie(nom_garantie);
+            int choice = JOptionPane.showConfirmDialog(this, "Etes vous sure de vouloir suprimer la garantie " + garantie.getGarantie() + " ?", "Action irréversible", JOptionPane.YES_NO_OPTION);
+            if (choice == 0) {
+                getController().getGarantieController().removeGarantie(garantie.getId());
+                updateTableGarantie();
+            }
+        }
+    }
+
+    private void ajout_police() {
+        if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+            droit_administration();
+            return;
+        }
+        PoliceDialog policeDialog = new PoliceDialog(null, true);
+        policeDialog.setVisible(true);
+        updateTableCompagniePolice();
+    }
+
+    private void mettre_a_jour_police(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+                droit_administration();
+                return;
+            }
+            long id_police = Long.parseLong(table_compagnie_police.getValueAt(row, table_compagnie_police.getColumnCount() - 1).toString());
+            PoliceDialog policeDialog = new PoliceDialog(null, true, getController().getPoliceController().getPolice(id_police));
+            policeDialog.setVisible(true);
+            updateTableCompagniePolice();
+        }
+
+    }
+
+    private void suprimer_police(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+                droit_administration();
+                return;
+            }
+            long id_police = Long.parseLong(table_compagnie_police.getValueAt(row, table_compagnie_police.getColumnCount() - 1).toString());
+            Police police = getController().getPoliceController().getPolice(id_police);
+            int choice = JOptionPane.showConfirmDialog(this, "Etes vous sure de vouloir suprimer le numéro de police " + police.getPolice() + " ?", "Action irréversible", JOptionPane.YES_NO_OPTION);
+            if (choice == 0) {
+                getController().getPoliceController().removePolice(police.getId());
+                updateTableGarantie();
+            }
+        }
+    }
+
+    private void ajout_compagnie_garantie() {
+        if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+            droit_administration();
+            return;
+        }
+        CompagnieGarantieDialog compagnieGarantieDialog = new CompagnieGarantieDialog(null, true);
+        compagnieGarantieDialog.setVisible(true);
+        updateTableCompagnieGarantie();
+    }
+
+    private void mettre_a_jour_compagnie_garantie(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+                droit_administration();
+                return;
+            }
+            long id_compagnie_garantie = Long.parseLong(table_compagnie_garantie.getValueAt(row, table_compagnie_garantie.getColumnCount() - 1).toString());
+            CompagnieGarantieDialog compagnieGarantieDialog = new CompagnieGarantieDialog(null, true, getController().getCompagnieGarantieController().getCompagnieGarantie(id_compagnie_garantie));
+            compagnieGarantieDialog.setVisible(true);
+            updateTableCompagnieGarantie();
+        }
+
+    }
+
+    private void suprimer_compagnie_garantie(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+                droit_administration();
+                return;
+            }
+            long id_compagnie_garantie = Long.parseLong(table_compagnie_garantie.getValueAt(row, table_compagnie_garantie.getColumnCount() - 1).toString());
+            CompagnieGarantie compagnieGarantie = getController().getCompagnieGarantieController().getCompagnieGarantie(id_compagnie_garantie);
+            int choice = JOptionPane.showConfirmDialog(this, "Etes vous sure de vouloir suprimer le montant " + compagnieGarantie.getMontant() + " ?", "Action irréversible", JOptionPane.YES_NO_OPTION);
+            if (choice == 0) {
+                getController().getCompagnieGarantieController().removeCompagnieGarantie(compagnieGarantie.getId());
+                updateTableCompagnieGarantie();
+            }
+        }
     }
 
     private void updateTablePrime() {
@@ -996,7 +1348,7 @@ public class MainPanel extends javax.swing.JPanel {
                 droit_modification();
                 return;
             }
-            Souscripteur souscripteur = getController().getSouscripteurController().getSouscripteur(Long.parseLong(table_souscripteur.getValueAt(row, table_souscripteur.getComponentCount() - 1).toString()));
+            Souscripteur souscripteur = getController().getSouscripteurController().getSouscripteur(Long.parseLong(table_souscripteur.getValueAt(row, table_souscripteur.getColumnCount() - 1).toString()));
             SouscripteurDialog souscripteurDialog = new SouscripteurDialog(null, true, souscripteur);
             souscripteurDialog.setVisible(true);
             updateTableSouscripteur();
@@ -1009,7 +1361,7 @@ public class MainPanel extends javax.swing.JPanel {
                 droit_supression();
                 return;
             }
-            Souscripteur souscripteur = getController().getSouscripteurController().getSouscripteur(Long.parseLong(table_souscripteur.getValueAt(row, table_souscripteur.getComponentCount() - 1).toString()));
+            Souscripteur souscripteur = getController().getSouscripteurController().getSouscripteur(Long.parseLong(table_souscripteur.getValueAt(row, table_souscripteur.getColumnCount() - 1).toString()));
             int choice = JOptionPane.showConfirmDialog(this, "Etes vous sure de vouloir suprimer le souscripteur " + souscripteur.getNom_prenom() + " ?", "Action irréversible", JOptionPane.YES_NO_OPTION);
             if (choice == 0) {
                 getController().getSouscripteurController().removeSouscripteur(souscripteur.getId());

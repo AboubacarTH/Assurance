@@ -5,7 +5,7 @@
  */
 package view.dialog;
 
-import bean.VehiculeMoteur;
+import bean.CompagnieGarantie;
 import javax.swing.JOptionPane;
 import static main.Assurances.getController;
 
@@ -13,7 +13,7 @@ import static main.Assurances.getController;
  *
  * @author ATH
  */
-public class VehiculeMoteurDialog extends javax.swing.JDialog {
+public class CompagnieGarantieDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form ClasseDialog
@@ -21,19 +21,25 @@ public class VehiculeMoteurDialog extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public VehiculeMoteurDialog(java.awt.Frame parent, boolean modal) {
+    public CompagnieGarantieDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        initCbEnergie();
+        initCbGarantie();
+        initCbCompagnie();
     }
 
-    public VehiculeMoteurDialog(java.awt.Frame parent, boolean modal, VehiculeMoteur vehiculeMoteur) {
+    public CompagnieGarantieDialog(java.awt.Frame parent, boolean modal, CompagnieGarantie compagnieGarantie) {
         super(parent, modal);
-        this.vehiculeMoteur = vehiculeMoteur;
+        this.compagnieGarantie = compagnieGarantie;
         initComponents();
-        initCbEnergie();
-        textField_puissance.setText(this.vehiculeMoteur.getPuissance());
-        combo_energie.setSelectedItem(getController().getEnergieController().getEnergie(this.vehiculeMoteur.getId_energie()).getEnergie());
+        initCbGarantie();
+        initCbCompagnie();
+        try {
+            combo_garantie.setSelectedItem(getController().getGarantieController().getGarantie(this.compagnieGarantie.getId_garantie()).getGarantie());
+            combo_compagnie.setSelectedItem(getController().getCompagnieController().getCompagnie(this.compagnieGarantie.getId_compagnie()).getCompagnie());
+            textField_montant.setText("" + this.compagnieGarantie.getMontant());
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -49,12 +55,14 @@ public class VehiculeMoteurDialog extends javax.swing.JDialog {
         btn_ok = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        textField_puissance = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        combo_energie = new javax.swing.JComboBox<>();
+        combo_garantie = new javax.swing.JComboBox<>();
+        combo_compagnie = new javax.swing.JComboBox<>();
+        textField_montant = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion Puissances");
+        setTitle("Gestion Compagnie Garanties");
         setModal(true);
         setResizable(false);
 
@@ -72,11 +80,15 @@ public class VehiculeMoteurDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Puissance");
+        jLabel1.setText("Compagnie");
 
-        jLabel2.setText("Energie");
+        jLabel2.setText("Garantie");
 
-        combo_energie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo_garantie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        combo_compagnie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel3.setText("Montant");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,12 +106,14 @@ public class VehiculeMoteurDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textField_puissance)
+                            .addComponent(combo_compagnie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(combo_garantie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(combo_energie, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textField_montant, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -107,14 +121,18 @@ public class VehiculeMoteurDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(textField_puissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo_compagnie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(combo_energie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(combo_garantie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textField_montant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -128,7 +146,7 @@ public class VehiculeMoteurDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
-        ajouter_zone();
+        ajouter_compagnie_garantie();
     }//GEN-LAST:event_btn_okActionPerformed
 
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
@@ -141,7 +159,7 @@ public class VehiculeMoteurDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() -> {
-            VehiculeMoteurDialog dialog = new VehiculeMoteurDialog(new javax.swing.JFrame(), true);
+            CompagnieGarantieDialog dialog = new CompagnieGarantieDialog(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -151,39 +169,65 @@ public class VehiculeMoteurDialog extends javax.swing.JDialog {
             dialog.setVisible(true);
         });
     }
-    private VehiculeMoteur vehiculeMoteur;
+    private CompagnieGarantie compagnieGarantie;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancel;
     private javax.swing.JButton btn_ok;
-    private javax.swing.JComboBox<String> combo_energie;
+    private javax.swing.JComboBox<String> combo_compagnie;
+    private javax.swing.JComboBox<String> combo_garantie;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField textField_puissance;
+    private javax.swing.JTextField textField_montant;
     // End of variables declaration//GEN-END:variables
-    private void ajouter_zone() {
-        if (textField_puissance.getText().isBlank() || combo_energie.getSelectedIndex() < 0) {
+    private void ajouter_compagnie_garantie() {
+        if (textField_montant.getText().isBlank() || combo_garantie.getSelectedIndex() < 0 || combo_compagnie.getSelectedIndex() < 0) {
             warning_information();
             return;
         }
-
-        if (vehiculeMoteur == null) {
-            if (getController().getVehiculeMoteurController().getVehiculeMoteur(textField_puissance.getText()) != null) {
+        double montant;
+        try {
+            montant = Double.parseDouble(textField_montant.getText());
+        } catch (NumberFormatException e) {
+            erreur_information();
+            return;
+        }
+        long id_garantie = getController().getGarantieController().getGarantie(combo_garantie.getSelectedItem().toString()).getId();
+        long id_compagnie = getController().getCompagnieController().getCompagnie(combo_compagnie.getSelectedItem().toString()).getId();
+        if (compagnieGarantie == null) {
+            if (getController().getCompagnieGarantieController().getCompagnieGarantie(id_compagnie, id_garantie) != null) {
                 erreur_information();
                 return;
             }
-            getController().getVehiculeMoteurController().addVehiculeMoteur(textField_puissance.getText(), getController().getEnergieController().getEnergie(combo_energie.getSelectedItem().toString()).getId());
+            getController().getCompagnieGarantieController().addCompagnieGarantie(
+                    id_compagnie,
+                    id_garantie,
+                    montant
+            );
         } else {
-            getController().getVehiculeMoteurController().updateVehiculeMoteur(vehiculeMoteur.getId(), textField_puissance.getText(), getController().getEnergieController().getEnergie(combo_energie.getSelectedItem().toString()).getId());
+            getController().getCompagnieGarantieController().updateCompagnieGarantie(
+                    compagnieGarantie.getId(),
+                    id_compagnie,
+                    id_garantie,
+                    montant
+            );
         }
         success_information();
         dispose();
     }
 
-    private void initCbEnergie() {
-        combo_energie.removeAllItems();
-        getController().getEnergieController().getEnergies().forEach((e) -> {
-            combo_energie.addItem(e.getEnergie());
+    private void initCbCompagnie() {
+        combo_compagnie.removeAllItems();
+        getController().getCompagnieController().getCompagnies().forEach((e) -> {
+            combo_compagnie.addItem(e.getCompagnie());
+        });
+    }
+
+    private void initCbGarantie() {
+        combo_garantie.removeAllItems();
+        getController().getGarantieController().getGaranties().forEach((e) -> {
+            combo_garantie.addItem(e.getGarantie());
         });
     }
 

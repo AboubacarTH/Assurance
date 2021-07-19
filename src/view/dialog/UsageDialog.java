@@ -49,7 +49,7 @@ public class UsageDialog extends javax.swing.JDialog {
         textField_usage = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion Zone");
+        setTitle("Gestion Usages");
         setModal(true);
         setResizable(false);
 
@@ -145,11 +145,11 @@ public class UsageDialog extends javax.swing.JDialog {
             warning_information();
             return;
         }
-        if (getController().getUsageController().getUsage(textField_usage.getText()) != null) {
-            erreur_information();
-            return;
-        }
         if (usage == null) {
+            if (getController().getUsageController().getUsage(textField_usage.getText()) != null) {
+                erreur_information();
+                return;
+            }
             getController().getUsageController().addUsage(textField_usage.getText());
         } else {
             getController().getUsageController().updateUsage(usage.getId(), textField_usage.getText());

@@ -5,7 +5,7 @@
  */
 package view.dialog;
 
-import bean.MotoMoteur;
+import bean.Compagnie;
 import javax.swing.JOptionPane;
 import static main.Assurances.getController;
 
@@ -13,7 +13,7 @@ import static main.Assurances.getController;
  *
  * @author ATH
  */
-public class MotoMoteurDialog extends javax.swing.JDialog {
+public class CompagnieDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form ClasseDialog
@@ -21,16 +21,16 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public MotoMoteurDialog(java.awt.Frame parent, boolean modal) {
+    public CompagnieDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
-    public MotoMoteurDialog(java.awt.Frame parent, boolean modal, MotoMoteur motoMoteur) {
+    public CompagnieDialog(java.awt.Frame parent, boolean modal, Compagnie compagnie) {
         super(parent, modal);
-        this.motoMoteur = motoMoteur;
+        this.compagnie = compagnie;
         initComponents();
-        textField_puissance.setText(this.motoMoteur.getPuissance());
+        textField_compagnie.setText(this.compagnie.getCompagnie());
     }
 
     /**
@@ -46,10 +46,10 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
         btn_ok = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        textField_puissance = new javax.swing.JTextField();
+        textField_compagnie = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion Puissances");
+        setTitle("Gestion Compagnies");
         setModal(true);
         setResizable(false);
 
@@ -67,7 +67,7 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Puissance moteur");
+        jLabel1.setText("Compagnie");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,7 +85,7 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(textField_puissance)))
+                        .addComponent(textField_compagnie)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -94,7 +94,7 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(textField_puissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textField_compagnie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -109,7 +109,7 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
-        ajouter_usage();
+        ajouter_compagnie();
     }//GEN-LAST:event_btn_okActionPerformed
 
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
@@ -122,7 +122,7 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() -> {
-            MotoMoteurDialog dialog = new MotoMoteurDialog(new javax.swing.JFrame(), true);
+            CompagnieDialog dialog = new CompagnieDialog(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -132,28 +132,27 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
             dialog.setVisible(true);
         });
     }
-    private MotoMoteur motoMoteur;
+    private Compagnie compagnie;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancel;
     private javax.swing.JButton btn_ok;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField textField_puissance;
+    private javax.swing.JTextField textField_compagnie;
     // End of variables declaration//GEN-END:variables
-    private void ajouter_usage() {
-        if (textField_puissance.getText().isBlank()) {
+    private void ajouter_compagnie() {
+        if (textField_compagnie.getText().isBlank()) {
             warning_information();
             return;
         }
-
-        if (motoMoteur == null) {
-            if (getController().getMotoMoteurController().getMotoMoteur(textField_puissance.getText()) != null) {
+        if (compagnie == null) {
+            if (getController().getCompagnieController().getCompagnie(textField_compagnie.getText()) != null) {
                 erreur_information();
                 return;
             }
-            getController().getMotoMoteurController().addMotoMoteur(textField_puissance.getText());
+            getController().getCompagnieController().addCompagnie(textField_compagnie.getText());
         } else {
-            getController().getMotoMoteurController().updateMotoMoteur(motoMoteur.getId(), textField_puissance.getText());
+            getController().getCompagnieController().updateCompagnie(compagnie.getId(), textField_compagnie.getText());
         }
         success_information();
         dispose();

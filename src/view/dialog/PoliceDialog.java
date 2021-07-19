@@ -5,7 +5,7 @@
  */
 package view.dialog;
 
-import bean.MotoMoteur;
+import bean.Police;
 import javax.swing.JOptionPane;
 import static main.Assurances.getController;
 
@@ -13,7 +13,7 @@ import static main.Assurances.getController;
  *
  * @author ATH
  */
-public class MotoMoteurDialog extends javax.swing.JDialog {
+public class PoliceDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form ClasseDialog
@@ -21,16 +21,25 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
      * @param parent
      * @param modal
      */
-    public MotoMoteurDialog(java.awt.Frame parent, boolean modal) {
+    public PoliceDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        initCbUsage();
+        initCbCompagnie();
     }
 
-    public MotoMoteurDialog(java.awt.Frame parent, boolean modal, MotoMoteur motoMoteur) {
+    public PoliceDialog(java.awt.Frame parent, boolean modal, Police police) {
         super(parent, modal);
-        this.motoMoteur = motoMoteur;
+        this.police = police;
         initComponents();
-        textField_puissance.setText(this.motoMoteur.getPuissance());
+        initCbUsage();
+        initCbCompagnie();
+        try {
+            combo_compagnie.setSelectedItem(getController().getCompagnieController().getCompagnie(this.police.getId_compagnie()).getCompagnie());
+            combo_usage.setSelectedItem(getController().getUsageController().getUsage(this.police.getId_usage()).getUsage());
+            textField_police.setText("" + this.police.getPolice());
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -46,7 +55,11 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
         btn_ok = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        textField_puissance = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        combo_compagnie = new javax.swing.JComboBox<>();
+        combo_usage = new javax.swing.JComboBox<>();
+        textField_police = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestion Puissances");
@@ -67,7 +80,15 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Puissance moteur");
+        jLabel1.setText("Usage");
+
+        jLabel2.setText("Compagnie");
+
+        combo_compagnie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        combo_usage.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel3.setText("N°Police");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,24 +99,40 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 254, Short.MAX_VALUE)
+                        .addGap(0, 179, Short.MAX_VALUE)
                         .addComponent(btn_ok)
                         .addGap(18, 18, 18)
                         .addComponent(btn_cancel))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addComponent(textField_puissance)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combo_usage, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(combo_compagnie, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(textField_police, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(textField_puissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(combo_usage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(combo_compagnie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textField_police, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -109,7 +146,7 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
-        ajouter_usage();
+        ajouter_police();
     }//GEN-LAST:event_btn_okActionPerformed
 
     private void btn_cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cancelActionPerformed
@@ -122,7 +159,7 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
     public static void main(String args[]) {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(() -> {
-            MotoMoteurDialog dialog = new MotoMoteurDialog(new javax.swing.JFrame(), true);
+            PoliceDialog dialog = new PoliceDialog(new javax.swing.JFrame(), true);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -132,31 +169,66 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
             dialog.setVisible(true);
         });
     }
-    private MotoMoteur motoMoteur;
+    private Police police;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_cancel;
     private javax.swing.JButton btn_ok;
+    private javax.swing.JComboBox<String> combo_compagnie;
+    private javax.swing.JComboBox<String> combo_usage;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField textField_puissance;
+    private javax.swing.JTextField textField_police;
     // End of variables declaration//GEN-END:variables
-    private void ajouter_usage() {
-        if (textField_puissance.getText().isBlank()) {
+    private void ajouter_police() {
+        if (textField_police.getText().isBlank() || combo_compagnie.getSelectedIndex() < 0 || combo_usage.getSelectedIndex() < 0) {
             warning_information();
             return;
         }
-
-        if (motoMoteur == null) {
-            if (getController().getMotoMoteurController().getMotoMoteur(textField_puissance.getText()) != null) {
+        long num_police;
+        try {
+            num_police = Long.parseLong(textField_police.getText());
+        } catch (NumberFormatException e) {
+            erreur_information();
+            return;
+        }
+        long id_usage = getController().getUsageController().getUsage(combo_usage.getSelectedItem().toString()).getId();
+        long id_compagnie = getController().getCompagnieController().getCompagnie(combo_compagnie.getSelectedItem().toString()).getId();
+        if (police == null) {
+            if (getController().getPoliceController().getPolice(id_usage, id_compagnie) != null) {
                 erreur_information();
                 return;
             }
-            getController().getMotoMoteurController().addMotoMoteur(textField_puissance.getText());
+            getController().getPoliceController().addPolice(
+                    id_usage,
+                    id_compagnie,
+                    num_police
+            );
         } else {
-            getController().getMotoMoteurController().updateMotoMoteur(motoMoteur.getId(), textField_puissance.getText());
+            getController().getPoliceController().updatePolice(
+                    police.getId(),
+                    id_usage,
+                    id_compagnie,
+                    num_police
+            );
         }
         success_information();
         dispose();
+    }
+
+    private void initCbCompagnie() {
+        combo_compagnie.removeAllItems();
+        getController().getCompagnieController().getCompagnies().forEach((e) -> {
+            combo_compagnie.addItem(e.getCompagnie());
+        });
+    }
+
+    private void initCbUsage() {
+        combo_usage.removeAllItems();
+        getController().getUsageController().getUsages().forEach((e) -> {
+            combo_usage.addItem(e.getUsage());
+        });
     }
 
     private void success_information() {

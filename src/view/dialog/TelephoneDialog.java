@@ -50,7 +50,7 @@ public class TelephoneDialog extends javax.swing.JDialog {
         textField_telephone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion numréro de téléphone");
+        setTitle("Gestion Numréros de téléphone");
         setModal(true);
         setResizable(false);
 

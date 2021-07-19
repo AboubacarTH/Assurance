@@ -49,7 +49,7 @@ public class ClasseDialog extends javax.swing.JDialog {
         textField_classe = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion Classe");
+        setTitle("Gestion Classes");
         setModal(true);
         setResizable(false);
 
@@ -154,11 +154,11 @@ public class ClasseDialog extends javax.swing.JDialog {
             erreur_information();
             return;
         }
-        if (getController().getClasseController().getClasse(id) != null) {
-            erreur_information();
-            return;
-        }
         if (classe == null) {
+            if (getController().getClasseController().getClasse(id) != null) {
+                erreur_information();
+                return;
+            }
             getController().getClasseController().addClasse(id);
         } else {
             getController().getClasseController().updateClasse(classe.getId(), id);
