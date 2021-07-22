@@ -3,9 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/controller/SaisieGarantieController.java</file>
+            <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/bean/SaisieGarantie.java</file>
             <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/view/panel/MainPanel.java</file>
             <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/view/panel/ConfigurationPanel.java</file>
+            <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/controller/UserSaisieController.java</file>
+            <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/controller/SaisieController.java</file>
+            <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/bean/UserSaisie.java</file>
             <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/view/dialog/CompagnieGarantieDialog.java</file>
+            <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/bean/Saisie.java</file>
+            <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/view/frame/MainFrame.java</file>
+            <file>file:/C:/Users/ATH/Documents/NetBeansProjects/Assurance/src/controller/Controller.java</file>
         </group>
     </open-files>
 </project-private>

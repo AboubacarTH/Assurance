@@ -21,6 +21,8 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        mainPanel = new MainPanel();
+        initPanel();
     }
 
     /**
@@ -32,30 +34,57 @@ public class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup_menu_items = new javax.swing.ButtonGroup();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        menu_item_accueil = new javax.swing.JMenuItem();
+        menu_item_compte = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        menu_item_deconnecter = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        menu_item_mono = new javax.swing.JMenuItem();
+        menu_item_mono = new javax.swing.JRadioButtonMenuItem();
+        menu_item_flotte = new javax.swing.JRadioButtonMenuItem();
         jMenu3 = new javax.swing.JMenu();
         menu_item_db = new javax.swing.JMenuItem();
         menu_item_saisie = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestion des Assurances");
         setMinimumSize(new java.awt.Dimension(1090, 700));
 
         jMenu1.setText("File");
-        jMenu1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        menu_item_accueil.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_item_accueil.setText("Accueil");
+        menu_item_accueil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_item_accueilActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menu_item_accueil);
+
+        menu_item_compte.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_item_compte.setText("Mon compte");
+        jMenu1.add(menu_item_compte);
+        jMenu1.add(jSeparator1);
+
+        menu_item_deconnecter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_item_deconnecter.setText("Se déconnecter");
+        jMenu1.add(menu_item_deconnecter);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edition");
+        buttonGroup_menu_items.add(jMenu2);
 
+        buttonGroup_menu_items.add(menu_item_mono);
+        menu_item_mono.setSelected(true);
         menu_item_mono.setText("Mono");
-        menu_item_mono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_item_monoActionPerformed(evt);
-            }
-        });
         jMenu2.add(menu_item_mono);
+
+        buttonGroup_menu_items.add(menu_item_flotte);
+        menu_item_flotte.setText("Flotte");
+        jMenu2.add(menu_item_flotte);
 
         jMenuBar1.add(jMenu2);
 
@@ -107,11 +136,9 @@ public class MainFrame extends javax.swing.JFrame {
         adresseDialog.setVisible(true);
     }//GEN-LAST:event_menu_item_dbActionPerformed
 
-    private void menu_item_monoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_item_monoActionPerformed
-        setContentPane(new MainPanel());
-        revalidate();
-        repaint();
-    }//GEN-LAST:event_menu_item_monoActionPerformed
+    private void menu_item_accueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_item_accueilActionPerformed
+        initPanel();
+    }//GEN-LAST:event_menu_item_accueilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,13 +152,32 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
     }
+    private final MainPanel mainPanel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup_menu_items;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenuItem menu_item_accueil;
+    private javax.swing.JMenuItem menu_item_compte;
     private javax.swing.JMenuItem menu_item_db;
-    private javax.swing.JMenuItem menu_item_mono;
+    private javax.swing.JMenuItem menu_item_deconnecter;
+    private static javax.swing.JRadioButtonMenuItem menu_item_flotte;
+    private static javax.swing.JRadioButtonMenuItem menu_item_mono;
     private javax.swing.JMenuItem menu_item_saisie;
     // End of variables declaration//GEN-END:variables
+
+    private void initPanel() {
+        setContentPane(mainPanel);
+    }
+
+    public static boolean getMono() {
+        return menu_item_mono.isSelected();
+    }
+
+    public static boolean getFlotte() {
+        return menu_item_flotte.isSelected();
+    }
 }

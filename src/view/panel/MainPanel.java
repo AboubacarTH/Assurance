@@ -5,6 +5,7 @@
  */
 package view.panel;
 
+import bean.Automobile;
 import bean.Classe;
 import bean.Compagnie;
 import bean.CompagnieGarantie;
@@ -28,6 +29,7 @@ import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
 import static main.Assurances.getController;
 import static main.Assurances.getUser;
+import view.dialog.AutomobileDialog;
 import view.dialog.CompagnieDialog;
 import view.dialog.CompagnieGarantieDialog;
 import view.dialog.GarantieDialog;
@@ -44,6 +46,7 @@ public class MainPanel extends javax.swing.JPanel {
      * Creates new form MainPanel
      */
     public MainPanel() {
+        id_souscripteur = 0;
         initComponents();
         initCB();
         initTable();
@@ -63,6 +66,8 @@ public class MainPanel extends javax.swing.JPanel {
         popup_menu_souscripteur_add = new javax.swing.JMenuItem();
         popup_menu_souscripteur_update = new javax.swing.JMenuItem();
         popup_menu_souscripteur_remove = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        popup_menu_souscripteur_select = new javax.swing.JMenuItem();
         buttonGroup = new javax.swing.ButtonGroup();
         popup_compagnie = new javax.swing.JPopupMenu();
         popup_menu_compagnie_add = new javax.swing.JMenuItem();
@@ -80,6 +85,10 @@ public class MainPanel extends javax.swing.JPanel {
         popup_menu_compagnie_garantie_add = new javax.swing.JMenuItem();
         popup_menu_compagnie_garantie_update = new javax.swing.JMenuItem();
         popup_menu_compagnie_garantie_remove = new javax.swing.JMenuItem();
+        popup_automobile = new javax.swing.JPopupMenu();
+        popup_menu_automobile_add = new javax.swing.JMenuItem();
+        popup_menu_automobile_update = new javax.swing.JMenuItem();
+        popup_menu_automobile_remove = new javax.swing.JMenuItem();
         tabbedPane = new javax.swing.JTabbedPane();
         panel_souscripteur = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -124,6 +133,43 @@ public class MainPanel extends javax.swing.JPanel {
         table_prime = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         textField_recherche = new javax.swing.JTextField();
+        panel_automobile = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        scrollPane_automobile = new javax.swing.JScrollPane();
+        table_automobile = new javax.swing.JTable();
+        tabbedPane_saisie = new javax.swing.JTabbedPane();
+        panel_nouvelle_sasie = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        textField_nouvelle_saisie_numero_assure = new javax.swing.JTextField();
+        textField_nouvelle_saisie_nom_prenom = new javax.swing.JTextField();
+        textField_nouvelle_saisie_numero_telephone = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        textField_nouvelle_saisie_compagnie = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table_nouvelle_saisie_garantie = new javax.swing.JTable();
+        calendar_prise_effet = new com.toedter.calendar.JCalendar();
+        calendar_echeance = new com.toedter.calendar.JCalendar();
+        btn_sauvegarder = new javax.swing.JButton();
+        btn_sauvegarder_imprimer = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        table_nouvelle_saisie_police = new javax.swing.JTable();
+        panel_sasies = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        textField_sauvegarde_rechercher = new javax.swing.JTextField();
+        btn_sauvegarde_ajouter = new javax.swing.JButton();
+        btn_sauvegarde_modifier = new javax.swing.JButton();
+        btn_sauvegarde_suprimer = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        table_sauvegarde_saisie = new javax.swing.JTable();
 
         popup_menu_souscripteur_add.setText("Ajouter souscripteur");
         popup_menu_souscripteur_add.addActionListener(new java.awt.event.ActionListener() {
@@ -148,6 +194,15 @@ public class MainPanel extends javax.swing.JPanel {
             }
         });
         popup_souscripteur.add(popup_menu_souscripteur_remove);
+        popup_souscripteur.add(jSeparator1);
+
+        popup_menu_souscripteur_select.setText("Selectionner le souscripteur");
+        popup_menu_souscripteur_select.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_souscripteur_selectActionPerformed(evt);
+            }
+        });
+        popup_souscripteur.add(popup_menu_souscripteur_select);
 
         popup_menu_compagnie_add.setText("Ajouter compagnie");
         popup_menu_compagnie_add.addActionListener(new java.awt.event.ActionListener() {
@@ -245,6 +300,30 @@ public class MainPanel extends javax.swing.JPanel {
         });
         popup_compagnie_garantie.add(popup_menu_compagnie_garantie_remove);
 
+        popup_menu_automobile_add.setText("Ajouter automobile");
+        popup_menu_automobile_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_automobile_addActionPerformed(evt);
+            }
+        });
+        popup_automobile.add(popup_menu_automobile_add);
+
+        popup_menu_automobile_update.setText("Mettre à jour automobile");
+        popup_menu_automobile_update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_automobile_updateActionPerformed(evt);
+            }
+        });
+        popup_automobile.add(popup_menu_automobile_update);
+
+        popup_menu_automobile_remove.setText("Suprimer automobile");
+        popup_menu_automobile_remove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_automobile_removeActionPerformed(evt);
+            }
+        });
+        popup_automobile.add(popup_menu_automobile_remove);
+
         jLabel1.setText("Rechercher");
 
         btn_ajouter_souscripteur.setText("Ajouter souscripteur");
@@ -317,7 +396,7 @@ public class MainPanel extends javax.swing.JPanel {
                 .addComponent(btn_mettre_a_jour_souscripteur)
                 .addGap(18, 18, 18)
                 .addComponent(btn_suprimer_souscripteur)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
             .addComponent(scrollPane_souscripteur, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         panel_souscripteurLayout.setVerticalGroup(
@@ -332,7 +411,7 @@ public class MainPanel extends javax.swing.JPanel {
                         .addComponent(btn_mettre_a_jour_souscripteur)
                         .addComponent(btn_suprimer_souscripteur)))
                 .addGap(18, 18, 18)
-                .addComponent(scrollPane_souscripteur, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
+                .addComponent(scrollPane_souscripteur, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Souscripteur", panel_souscripteur);
@@ -410,7 +489,7 @@ public class MainPanel extends javax.swing.JPanel {
             .addGroup(panel_compagnie_policeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_compagnie_policeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane_compagnie_police, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE)
+                    .addComponent(scrollPane_compagnie_police, javax.swing.GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
                     .addGroup(panel_compagnie_policeLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
@@ -517,7 +596,7 @@ public class MainPanel extends javax.swing.JPanel {
                     .addComponent(combo_compagnie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
-                .addComponent(scrollPane_compagnie_garantie, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                .addComponent(scrollPane_compagnie_garantie, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -733,7 +812,7 @@ public class MainPanel extends javax.swing.JPanel {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(panel_primeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane_prime, javax.swing.GroupLayout.DEFAULT_SIZE, 806, Short.MAX_VALUE)
+                    .addComponent(scrollPane_prime, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
                     .addGroup(panel_primeLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addGap(18, 18, 18)
@@ -751,12 +830,401 @@ public class MainPanel extends javax.swing.JPanel {
                             .addComponent(jLabel10)
                             .addComponent(textField_recherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(scrollPane_prime, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE))
+                        .addComponent(scrollPane_prime, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         tabbedPane.addTab("Prime", panel_prime);
+
+        jLabel11.setText("Rechercher");
+
+        jButton1.setText("Ajouter automobile");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Modifier automobile");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Suprimer automobile");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        table_automobile.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "N°", "N° Plaque", "Type", "Marque", "N° Chassis", "Date 1ère mise circulation", "Nombre de place", "Charge utile", "ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollPane_automobile.setViewportView(table_automobile);
+        if (table_automobile.getColumnModel().getColumnCount() > 0) {
+            table_automobile.getColumnModel().getColumn(0).setMinWidth(35);
+            table_automobile.getColumnModel().getColumn(0).setPreferredWidth(35);
+            table_automobile.getColumnModel().getColumn(0).setMaxWidth(35);
+            table_automobile.getColumnModel().getColumn(8).setMinWidth(5);
+            table_automobile.getColumnModel().getColumn(8).setPreferredWidth(5);
+            table_automobile.getColumnModel().getColumn(8).setMaxWidth(5);
+        }
+
+        javax.swing.GroupLayout panel_automobileLayout = new javax.swing.GroupLayout(panel_automobile);
+        panel_automobile.setLayout(panel_automobileLayout);
+        panel_automobileLayout.setHorizontalGroup(
+            panel_automobileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_automobileLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_automobileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane_automobile)
+                    .addGroup(panel_automobileLayout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 148, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panel_automobileLayout.setVerticalGroup(
+            panel_automobileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_automobileLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_automobileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_automobileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2)
+                        .addComponent(jButton3))
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane_automobile, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tabbedPane.addTab("Automobile", panel_automobile);
+
+        tabbedPane_saisie.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Souscripteur"));
+
+        jLabel12.setText("Numéro assuré");
+
+        jLabel13.setText("Nom et Prénom");
+
+        jLabel14.setText("Numéro(s) de téléphone");
+
+        textField_nouvelle_saisie_numero_assure.setEditable(false);
+
+        textField_nouvelle_saisie_nom_prenom.setEditable(false);
+
+        textField_nouvelle_saisie_numero_telephone.setEditable(false);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel12))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textField_nouvelle_saisie_numero_assure, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                    .addComponent(textField_nouvelle_saisie_nom_prenom)
+                    .addComponent(textField_nouvelle_saisie_numero_telephone))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(textField_nouvelle_saisie_numero_assure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(textField_nouvelle_saisie_nom_prenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(textField_nouvelle_saisie_numero_telephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Compagnie d'assurance et garantie"));
+
+        jLabel15.setText("Compagnie");
+
+        textField_nouvelle_saisie_compagnie.setEditable(false);
+
+        table_nouvelle_saisie_garantie.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "N°", "Garantie", "Montant", "ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(table_nouvelle_saisie_garantie);
+        if (table_nouvelle_saisie_garantie.getColumnModel().getColumnCount() > 0) {
+            table_nouvelle_saisie_garantie.getColumnModel().getColumn(0).setMinWidth(35);
+            table_nouvelle_saisie_garantie.getColumnModel().getColumn(0).setPreferredWidth(35);
+            table_nouvelle_saisie_garantie.getColumnModel().getColumn(0).setMaxWidth(35);
+            table_nouvelle_saisie_garantie.getColumnModel().getColumn(3).setMinWidth(5);
+            table_nouvelle_saisie_garantie.getColumnModel().getColumn(3).setPreferredWidth(5);
+            table_nouvelle_saisie_garantie.getColumnModel().getColumn(3).setMaxWidth(5);
+        }
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addGap(18, 18, 18)
+                        .addComponent(textField_nouvelle_saisie_compagnie, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(textField_nouvelle_saisie_compagnie, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        calendar_prise_effet.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Date de prise d'effet"));
+
+        calendar_echeance.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Date d'echeance"));
+
+        btn_sauvegarder.setText("Sauvegarder");
+
+        btn_sauvegarder_imprimer.setText("Sauvegarder et imprimer");
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Numéro police"));
+
+        table_nouvelle_saisie_police.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "N°", "N° Plaque", "N° Police", "ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(table_nouvelle_saisie_police);
+        if (table_nouvelle_saisie_police.getColumnModel().getColumnCount() > 0) {
+            table_nouvelle_saisie_police.getColumnModel().getColumn(0).setMinWidth(35);
+            table_nouvelle_saisie_police.getColumnModel().getColumn(0).setPreferredWidth(35);
+            table_nouvelle_saisie_police.getColumnModel().getColumn(0).setMaxWidth(35);
+            table_nouvelle_saisie_police.getColumnModel().getColumn(3).setMinWidth(5);
+            table_nouvelle_saisie_police.getColumnModel().getColumn(3).setPreferredWidth(5);
+            table_nouvelle_saisie_police.getColumnModel().getColumn(3).setMaxWidth(5);
+        }
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panel_nouvelle_sasieLayout = new javax.swing.GroupLayout(panel_nouvelle_sasie);
+        panel_nouvelle_sasie.setLayout(panel_nouvelle_sasieLayout);
+        panel_nouvelle_sasieLayout.setHorizontalGroup(
+            panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_nouvelle_sasieLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(calendar_echeance, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(calendar_prise_effet, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panel_nouvelle_sasieLayout.createSequentialGroup()
+                        .addComponent(btn_sauvegarder, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_sauvegarder_imprimer)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panel_nouvelle_sasieLayout.setVerticalGroup(
+            panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_nouvelle_sasieLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panel_nouvelle_sasieLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(calendar_prise_effet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(calendar_echeance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_nouvelle_sasieLayout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addGroup(panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_sauvegarder)
+                    .addComponent(btn_sauvegarder_imprimer))
+                .addGap(116, 116, 116))
+        );
+
+        tabbedPane_saisie.addTab("Nouvelle saisie", panel_nouvelle_sasie);
+
+        jLabel18.setText("Rechercher");
+
+        btn_sauvegarde_ajouter.setText("Ajouter nouvelle saisie");
+
+        btn_sauvegarde_modifier.setText("Modifier la saisie");
+
+        btn_sauvegarde_suprimer.setText("Suprimer la saisie");
+
+        table_sauvegarde_saisie.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "N°", "Souscripteur", "N° assuré", "N° police", "N° Plaque auto", "Date effet", "Date echeance", "ID"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(table_sauvegarde_saisie);
+        if (table_sauvegarde_saisie.getColumnModel().getColumnCount() > 0) {
+            table_sauvegarde_saisie.getColumnModel().getColumn(0).setMinWidth(35);
+            table_sauvegarde_saisie.getColumnModel().getColumn(0).setPreferredWidth(35);
+            table_sauvegarde_saisie.getColumnModel().getColumn(0).setMaxWidth(35);
+            table_sauvegarde_saisie.getColumnModel().getColumn(2).setMinWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(2).setPreferredWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(2).setMaxWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(3).setMinWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(3).setPreferredWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(3).setMaxWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(4).setMinWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(4).setPreferredWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(4).setMaxWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(5).setMinWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(5).setPreferredWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(5).setMaxWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(6).setMinWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(6).setPreferredWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(6).setMaxWidth(150);
+            table_sauvegarde_saisie.getColumnModel().getColumn(7).setMinWidth(5);
+            table_sauvegarde_saisie.getColumnModel().getColumn(7).setPreferredWidth(5);
+            table_sauvegarde_saisie.getColumnModel().getColumn(7).setMaxWidth(5);
+        }
+
+        javax.swing.GroupLayout panel_sasiesLayout = new javax.swing.GroupLayout(panel_sasies);
+        panel_sasies.setLayout(panel_sasiesLayout);
+        panel_sasiesLayout.setHorizontalGroup(
+            panel_sasiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_sasiesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_sasiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(panel_sasiesLayout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addGap(18, 18, 18)
+                        .addComponent(textField_sauvegarde_rechercher, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_sauvegarde_ajouter)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_sauvegarde_modifier)
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_sauvegarde_suprimer)
+                        .addGap(0, 142, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panel_sasiesLayout.setVerticalGroup(
+            panel_sasiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panel_sasiesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panel_sasiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_sasiesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textField_sauvegarde_rechercher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btn_sauvegarde_ajouter)
+                        .addComponent(btn_sauvegarde_modifier)
+                        .addComponent(btn_sauvegarde_suprimer))
+                    .addComponent(jLabel18))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 596, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        tabbedPane_saisie.addTab("Saisies enrégistrées", panel_sasies);
+
+        tabbedPane.addTab("Saisie", tabbedPane_saisie);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -885,11 +1353,46 @@ public class MainPanel extends javax.swing.JPanel {
         suprimer_compagnie_garantie(table_compagnie_garantie.getSelectedRow());
     }//GEN-LAST:event_popup_menu_compagnie_garantie_removeActionPerformed
 
+    private void popup_menu_automobile_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_automobile_addActionPerformed
+        ajout_automobile();
+    }//GEN-LAST:event_popup_menu_automobile_addActionPerformed
+
+    private void popup_menu_automobile_updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_automobile_updateActionPerformed
+        mettre_a_jour_automobile(table_automobile.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_automobile_updateActionPerformed
+
+    private void popup_menu_automobile_removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_automobile_removeActionPerformed
+        suprimer_automobile(table_automobile.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_automobile_removeActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ajout_automobile();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        mettre_a_jour_automobile(table_automobile.getSelectedRow());
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        suprimer_automobile(table_automobile.getSelectedRow());
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void popup_menu_souscripteur_selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_souscripteur_selectActionPerformed
+        selection_souscripteur(table_souscripteur.getSelectedRow());
+    }//GEN-LAST:event_popup_menu_souscripteur_selectActionPerformed
+    private long id_souscripteur;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ajouter_souscripteur;
     private javax.swing.JButton btn_mettre_a_jour_souscripteur;
+    private javax.swing.JButton btn_sauvegarde_ajouter;
+    private javax.swing.JButton btn_sauvegarde_modifier;
+    private javax.swing.JButton btn_sauvegarde_suprimer;
+    private javax.swing.JButton btn_sauvegarder;
+    private javax.swing.JButton btn_sauvegarder_imprimer;
     private javax.swing.JButton btn_suprimer_souscripteur;
     private javax.swing.ButtonGroup buttonGroup;
+    private com.toedter.calendar.JCalendar calendar_echeance;
+    private com.toedter.calendar.JCalendar calendar_prise_effet;
     private javax.swing.JComboBox<String> combo_classe;
     private javax.swing.JComboBox<String> combo_compagnie;
     private javax.swing.JComboBox<String> combo_compagnie_usage;
@@ -898,8 +1401,17 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> combo_prime_usage;
     private javax.swing.JComboBox<String> combo_puissance;
     private javax.swing.JComboBox<String> combo_zone;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -909,16 +1421,31 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPanel panel_automobile;
     private javax.swing.JPanel panel_compagnie_assurance;
     private javax.swing.JPanel panel_compagnie_garantie;
     private javax.swing.JPanel panel_compagnie_police;
+    private javax.swing.JPanel panel_nouvelle_sasie;
     private javax.swing.JPanel panel_prime;
+    private javax.swing.JPanel panel_sasies;
     private javax.swing.JPanel panel_souscripteur;
+    private javax.swing.JPopupMenu popup_automobile;
     private javax.swing.JPopupMenu popup_compagnie;
     private javax.swing.JPopupMenu popup_compagnie_garantie;
     private javax.swing.JPopupMenu popup_compagnie_police;
     private javax.swing.JPopupMenu popup_garantie;
+    private javax.swing.JMenuItem popup_menu_automobile_add;
+    private javax.swing.JMenuItem popup_menu_automobile_remove;
+    private javax.swing.JMenuItem popup_menu_automobile_update;
     private javax.swing.JMenuItem popup_menu_compagnie_add;
     private javax.swing.JMenuItem popup_menu_compagnie_garantie_add;
     private javax.swing.JMenuItem popup_menu_compagnie_garantie_remove;
@@ -933,10 +1460,12 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JMenuItem popup_menu_garantie_update;
     private javax.swing.JMenuItem popup_menu_souscripteur_add;
     private javax.swing.JMenuItem popup_menu_souscripteur_remove;
+    private javax.swing.JMenuItem popup_menu_souscripteur_select;
     private javax.swing.JMenuItem popup_menu_souscripteur_update;
     private javax.swing.JPopupMenu popup_souscripteur;
     private javax.swing.JRadioButton radio_btn_moto;
     private javax.swing.JRadioButton radio_btn_vehicule;
+    private javax.swing.JScrollPane scrollPane_automobile;
     private javax.swing.JScrollPane scrollPane_compagnie;
     private javax.swing.JScrollPane scrollPane_compagnie_garantie;
     private javax.swing.JScrollPane scrollPane_compagnie_police;
@@ -944,13 +1473,23 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane scrollPane_prime;
     private javax.swing.JScrollPane scrollPane_souscripteur;
     private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTabbedPane tabbedPane_saisie;
+    private javax.swing.JTable table_automobile;
     private javax.swing.JTable table_compagnie;
     private javax.swing.JTable table_compagnie_garantie;
     private javax.swing.JTable table_compagnie_police;
     private javax.swing.JTable table_garantie;
+    private javax.swing.JTable table_nouvelle_saisie_garantie;
+    private javax.swing.JTable table_nouvelle_saisie_police;
     private javax.swing.JTable table_prime;
+    private javax.swing.JTable table_sauvegarde_saisie;
     private javax.swing.JTable table_souscripteur;
+    private javax.swing.JTextField textField_nouvelle_saisie_compagnie;
+    private javax.swing.JTextField textField_nouvelle_saisie_nom_prenom;
+    private javax.swing.JTextField textField_nouvelle_saisie_numero_assure;
+    private javax.swing.JTextField textField_nouvelle_saisie_numero_telephone;
     private javax.swing.JTextField textField_recherche;
+    private javax.swing.JTextField textField_sauvegarde_rechercher;
     // End of variables declaration//GEN-END:variables
 
     private static void addPopup(Component component, final JPopupMenu popup) {
@@ -990,6 +1529,9 @@ public class MainPanel extends javax.swing.JPanel {
 
         addPopup(table_compagnie_garantie, popup_compagnie_garantie);
         addPopup(scrollPane_compagnie_garantie, popup_compagnie_garantie);
+
+        addPopup(scrollPane_automobile, popup_automobile);
+        addPopup(table_automobile, popup_automobile);
     }
 
     private void initTable() {
@@ -999,6 +1541,7 @@ public class MainPanel extends javax.swing.JPanel {
         updateTableCompagnieGarantie();
         updateTableCompagniePolice();
         updateTablePrime();
+        updateTableAutomobile();
     }
 
     private void updateTableSouscripteur() {
@@ -1095,6 +1638,26 @@ public class MainPanel extends javax.swing.JPanel {
         table_compagnie_police.setModel(model);
     }
 
+    private void updateTableAutomobile() {
+        DefaultTableModel model = (DefaultTableModel) table_automobile.getModel();
+        model.setRowCount(0);
+        ArrayList<Automobile> list = getController().getAutomobileController().getAutomobiles();
+        for (int i = 0; i < list.size(); i++) {
+            Object colonne[] = new Object[9];
+            colonne[0] = i + 1;
+            colonne[1] = list.get(i).getNumero_plaque();
+            colonne[2] = list.get(i).getType();
+            colonne[3] = list.get(i).getMarque();
+            colonne[4] = list.get(i).getNumero_chassis();
+            colonne[5] = list.get(i).getDate_circulation();
+            colonne[6] = list.get(i).getNombre_place();
+            colonne[7] = list.get(i).getCharge_utile();
+            colonne[8] = list.get(i).getId();
+            model.addRow(colonne);
+        }
+        table_automobile.setModel(model);
+    }
+
     private void ajout_souscripteur() {
         if (!getController().getDroitController().getDroit(getUser().getId()).isEcriture()) {
             droit_ajout();
@@ -1103,6 +1666,16 @@ public class MainPanel extends javax.swing.JPanel {
         SouscripteurDialog souscripteurDialog = new SouscripteurDialog(null, true);
         souscripteurDialog.setVisible(true);
         updateTableSouscripteur();
+    }
+
+    private void ajout_automobile() {
+        if (!getController().getDroitController().getDroit(getUser().getId()).isEcriture()) {
+            droit_ajout();
+            return;
+        }
+        AutomobileDialog automobileDialog = new AutomobileDialog(null, true);
+        automobileDialog.setVisible(true);
+        updateTableAutomobile();
     }
 
     private void ajout_compagnie() {
@@ -1130,6 +1703,34 @@ public class MainPanel extends javax.swing.JPanel {
                 updateTableCompagnie();
                 initCBCompagnie();
             }
+        }
+    }
+
+    private void suprimer_automobile(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+                droit_administration();
+                return;
+            }
+            Automobile automobile = getController().getAutomobileController().getAutomobile(Long.parseLong(table_automobile.getValueAt(row, table_automobile.getColumnCount() - 1).toString()));
+            int choice = JOptionPane.showConfirmDialog(this, "Etes vous sure de vouloir suprimer l'automobile " + automobile.getNumero_plaque() + " ?", "Action irréversible", JOptionPane.YES_NO_OPTION);
+            if (choice == 0) {
+                getController().getAutomobileController().removeAutomobile(automobile.getId());
+                updateTableAutomobile();
+            }
+        }
+    }
+
+    private void mettre_a_jour_automobile(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isAdministration()) {
+                droit_administration();
+                return;
+            }
+            Automobile automobile = getController().getAutomobileController().getAutomobile(Long.parseLong(table_automobile.getValueAt(row, table_automobile.getColumnCount() - 1).toString()));
+            AutomobileDialog automobileDialog = new AutomobileDialog(null, true, automobile);
+            automobileDialog.setVisible(true);
+            updateTableAutomobile();
         }
     }
 
@@ -1462,6 +2063,10 @@ public class MainPanel extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(this, "Droit d'ajout est réquiert pour effectuer cette opération. ", "Droit d'ajout !", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    private void droit_saisie() {
+        JOptionPane.showMessageDialog(this, "Droit d'ecriture est réquiert pour effectuer cette opération. ", "Droit d'ecriture !", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     private void droit_modification() {
         JOptionPane.showMessageDialog(this, "Droit de modification est réquiert pour effectuer cette opération. ", "Droit de modification !", JOptionPane.INFORMATION_MESSAGE);
     }
@@ -1472,5 +2077,24 @@ public class MainPanel extends javax.swing.JPanel {
 
     private void droit_administration() {
         JOptionPane.showMessageDialog(this, "Droit d'administration est réquiert pour effectuer cette opération. ", "Droit d'administration !", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void selection_souscripteur(int row) {
+        if (row > -1) {
+            if (!getController().getDroitController().getDroit(getUser().getId()).isEcriture()) {
+                droit_saisie();
+                return;
+            }
+            try {
+                id_souscripteur = Long.parseLong(table_souscripteur.getValueAt(row, table_souscripteur.getColumnCount() - 1).toString());
+            } catch (NumberFormatException e) {
+                id_souscripteur = 0;
+            }
+
+            textField_nouvelle_saisie_numero_assure.setText(table_souscripteur.getValueAt(row, 1).toString());
+            textField_nouvelle_saisie_nom_prenom.setText(table_souscripteur.getValueAt(row, 2).toString());
+            textField_nouvelle_saisie_numero_telephone.setText(table_souscripteur.getValueAt(row, 5).toString());
+            JOptionPane.showMessageDialog(this, "Souscripteur selectionné avec success ", "Opération success !", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 }

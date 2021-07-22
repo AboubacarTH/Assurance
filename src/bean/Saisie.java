@@ -7,6 +7,7 @@ public class Saisie {
     private long id, id_souscripteur, id_automobile, id_compagnie;
     private Date date_saisie, date_effet, date_echeance;
     private double prime_nette, surprime, accessoire, taxe, prime_totale;
+    private String numero_police;
 
     public Saisie() {
 
@@ -14,7 +15,7 @@ public class Saisie {
 
     public Saisie(long id, long id_souscripteur, long id_automobile, long id_compagnie, Date date_saisie,
             Date date_effet, Date date_echeance, double prime_nette, double surprime, double accessoire, double taxe,
-            double prime_totale) {
+            double prime_totale, String numero_police) {
         this.id = id;
         this.id_souscripteur = id_souscripteur;
         this.id_automobile = id_automobile;
@@ -27,6 +28,7 @@ public class Saisie {
         this.accessoire = accessoire;
         this.taxe = taxe;
         this.prime_totale = prime_totale;
+        this.numero_police = numero_police;
     }
 
     public long getId() {
@@ -35,6 +37,14 @@ public class Saisie {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getNumero_police() {
+        return numero_police;
+    }
+
+    public void setNumero_police(String numero_police) {
+        this.numero_police = numero_police;
     }
 
     public long getId_souscripteur() {

@@ -84,6 +84,22 @@ public class AutomobileController {
         return null;
     }
 
+    public Automobile getAutomobile(String numero_plaque) {
+        String req = "SELECT * FROM automobiles WHERE numero_plaque = ? ";
+        try {
+            preparedStatement = connection.prepareStatement(req);
+            preparedStatement.setString(1, numero_plaque);
+            preparedStatement.execute();
+            resultSet = preparedStatement.getResultSet();
+            if (resultSet.next()) {
+                return new Automobile(resultSet.getLong("id"), resultSet.getLong("id_tarif"), resultSet.getInt("nombre_place"), resultSet.getDate("date_circulation"), resultSet.getString("type"), resultSet.getString("numero_plaque"), resultSet.getString("marque"), resultSet.getString("numero_chassis"), resultSet.getDouble("charge_utile"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public ArrayList<Automobile> getAutomobiles() {
         String req = "SELECT * FROM automobiles ";
         try {
@@ -91,7 +107,7 @@ public class AutomobileController {
             preparedStatement = connection.prepareStatement(req);
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 list.add(new Automobile(resultSet.getLong("id"), resultSet.getLong("id_tarif"), resultSet.getInt("nombre_place"), resultSet.getDate("date_circulation"), resultSet.getString("type"), resultSet.getString("numero_plaque"), resultSet.getString("marque"), resultSet.getString("numero_chassis"), resultSet.getDouble("charge_utile")));
             }
             return list;
