@@ -1,3 +1,4 @@
+<img src = "Assurance.JPG" />
 # Assurance
 Logiciel de gestion des assurances
 <h1>Un logiciel de courtage d'assurances</h1>
