@@ -83,7 +83,7 @@ public class TarifDialog extends javax.swing.JDialog {
         textField_tarif = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion Tarif");
+        setTitle("Gestion Tarifs");
         setModal(true);
         setResizable(false);
 
@@ -323,11 +323,12 @@ public class TarifDialog extends javax.swing.JDialog {
 
         if (radio_btn_vehicule.isSelected()) {
             long id_puissance_vehicule = getController().getVehiculeMoteurController().getVehiculeMoteur(combo_puissance.getSelectedItem().toString()).getId();
-            if (getController().getTarifController().getTarif(id_classe, id_groupe, id_zone, id_usage, id_puissance_vehicule, id_energie) != null) {
-                erreur_information();
-                return;
-            }
+
             if (tarif == null) {
+                if (getController().getTarifController().getTarif(id_classe, id_groupe, id_zone, id_usage, id_puissance_vehicule, id_energie) != null) {
+                    erreur_information();
+                    return;
+                }
                 getController().getTarifController().addTarif(
                         id_classe,
                         id_groupe,

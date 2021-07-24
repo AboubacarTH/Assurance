@@ -13,13 +13,22 @@ import java.sql.Date;
  */
 public class UserSaisie {
 
-    private long id_saisie, id_user;
+    private long id, id_saisie, id_user;
     private Date date;
 
-    public UserSaisie(long id_saisie, long id_user, Date date) {
+    public UserSaisie(long id, long id_saisie, long id_user, Date date) {
+        this.id = id;
         this.id_saisie = id_saisie;
         this.id_user = id_user;
         this.date = date;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public long getId_saisie() {

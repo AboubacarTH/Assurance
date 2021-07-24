@@ -49,7 +49,7 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
         textField_puissance = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion Zone");
+        setTitle("Gestion Puissances");
         setModal(true);
         setResizable(false);
 
@@ -145,11 +145,12 @@ public class MotoMoteurDialog extends javax.swing.JDialog {
             warning_information();
             return;
         }
-        if (getController().getMotoMoteurController().getMotoMoteur(textField_puissance.getText()) != null) {
-            erreur_information();
-            return;
-        }
+
         if (motoMoteur == null) {
+            if (getController().getMotoMoteurController().getMotoMoteur(textField_puissance.getText()) != null) {
+                erreur_information();
+                return;
+            }
             getController().getMotoMoteurController().addMotoMoteur(textField_puissance.getText());
         } else {
             getController().getMotoMoteurController().updateMotoMoteur(motoMoteur.getId(), textField_puissance.getText());

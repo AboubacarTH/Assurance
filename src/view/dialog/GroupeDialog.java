@@ -49,7 +49,7 @@ public class GroupeDialog extends javax.swing.JDialog {
         textField_groupe = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion Groupe");
+        setTitle("Gestion Groupes");
         setModal(true);
         setResizable(false);
 
@@ -154,11 +154,12 @@ public class GroupeDialog extends javax.swing.JDialog {
             erreur_information();
             return;
         }
-        if (getController().getGroupeController().getGroupe(id) != null) {
-            erreur_information();
-            return;
-        }
+
         if (groupe == null) {
+            if (getController().getGroupeController().getGroupe(id) != null) {
+                erreur_information();
+                return;
+            }
             getController().getGroupeController().addGroupe(id);
         } else {
             getController().getGroupeController().updateGroupe(groupe.getId(), id);

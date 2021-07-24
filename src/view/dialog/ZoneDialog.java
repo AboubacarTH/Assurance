@@ -49,7 +49,7 @@ public class ZoneDialog extends javax.swing.JDialog {
         textField_zone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion Zone");
+        setTitle("Gestion Zones");
         setModal(true);
         setResizable(false);
 
@@ -145,11 +145,12 @@ public class ZoneDialog extends javax.swing.JDialog {
             warning_information();
             return;
         }
-        if (getController().getZoneController().getZone(textField_zone.getText()) != null) {
-            erreur_information();
-            return;
-        }
+
         if (zone == null) {
+            if (getController().getZoneController().getZone(textField_zone.getText()) != null) {
+                erreur_information();
+                return;
+            }
             getController().getZoneController().addZone(textField_zone.getText());
         } else {
             getController().getZoneController().updateZone(zone.getId(), textField_zone.getText());

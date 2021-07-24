@@ -54,7 +54,7 @@ public class VehiculeMoteurDialog extends javax.swing.JDialog {
         combo_energie = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion Zone");
+        setTitle("Gestion Puissances");
         setModal(true);
         setResizable(false);
 
@@ -166,11 +166,12 @@ public class VehiculeMoteurDialog extends javax.swing.JDialog {
             warning_information();
             return;
         }
-        if (getController().getVehiculeMoteurController().getVehiculeMoteur(textField_puissance.getText()) != null) {
-            erreur_information();
-            return;
-        }
+
         if (vehiculeMoteur == null) {
+            if (getController().getVehiculeMoteurController().getVehiculeMoteur(textField_puissance.getText()) != null) {
+                erreur_information();
+                return;
+            }
             getController().getVehiculeMoteurController().addVehiculeMoteur(textField_puissance.getText(), getController().getEnergieController().getEnergie(combo_energie.getSelectedItem().toString()).getId());
         } else {
             getController().getVehiculeMoteurController().updateVehiculeMoteur(vehiculeMoteur.getId(), textField_puissance.getText(), getController().getEnergieController().getEnergie(combo_energie.getSelectedItem().toString()).getId());

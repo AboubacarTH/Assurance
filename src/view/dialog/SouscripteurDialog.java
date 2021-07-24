@@ -104,7 +104,7 @@ public class SouscripteurDialog extends javax.swing.JDialog {
         popup.add(popup_menu_remove);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gestion souscripteur");
+        setTitle("Gestion Souscripteurs");
         setModal(true);
         setResizable(false);
 

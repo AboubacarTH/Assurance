@@ -99,10 +99,13 @@ public class CompagnieGarantieController {
         return null;
     }
 
-    public ArrayList<CompagnieGarantie> getCompagnieGaranties() {
+    public ArrayList<CompagnieGarantie> getCompagnieGaranties(long id_compagnie) {
         try {
             ArrayList<CompagnieGarantie> list = new ArrayList<>();
-            String req = "SELECT * FROM compagnie_garanties ";
+            String req = "SELECT * FROM compagnie_garanties WHERE id > '0' ";
+            if (id_compagnie != 0) {
+                req += "AND id_compagnie = '" + id_compagnie + "' ";
+            }
             preparedStatement = connection.prepareStatement(req);
             preparedStatement.execute();
             resultSet = preparedStatement.getResultSet();

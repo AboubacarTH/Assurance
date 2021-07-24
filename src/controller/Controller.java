@@ -31,6 +31,9 @@ public class Controller {
     private final GarantieController garantieController;
     private final UserController userController;
     private final DroitController droitController;
+    private final SaisieController saisieController;
+    private final SaisieGarantieController saisieGarantieController;
+    private final UserSaisieController userSaisieController;
     private final Connection connection;
 
     public Controller() {
@@ -52,6 +55,21 @@ public class Controller {
         garantieController = new GarantieController(connection);
         userController = new UserController(connection);
         droitController = new DroitController(connection);
+        saisieController = new SaisieController(connection);
+        saisieGarantieController = new SaisieGarantieController(connection);
+        userSaisieController = new UserSaisieController(connection);
+    }
+
+    public SaisieController getSaisieController() {
+        return saisieController;
+    }
+
+    public SaisieGarantieController getSaisieGarantieController() {
+        return saisieGarantieController;
+    }
+
+    public UserSaisieController getUserSaisieController() {
+        return userSaisieController;
     }
 
     public UserController getUserController() {
