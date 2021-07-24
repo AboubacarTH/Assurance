@@ -13,6 +13,7 @@ import bean.Energie;
 import bean.Garantie;
 import bean.Groupe;
 import bean.MotoMoteur;
+import bean.NumberRenderer;
 import bean.Police;
 import bean.Souscripteur;
 import bean.Tarif;
@@ -23,7 +24,10 @@ import bean.Zone;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.table.DefaultTableModel;
@@ -35,6 +39,7 @@ import view.dialog.CompagnieGarantieDialog;
 import view.dialog.GarantieDialog;
 import view.dialog.PoliceDialog;
 import view.dialog.SouscripteurDialog;
+import view.frame.MainFrame;
 
 /**
  *
@@ -47,6 +52,9 @@ public class MainPanel extends javax.swing.JPanel {
      */
     public MainPanel() {
         id_souscripteur = 0;
+        id_compagnie = 0;
+        id_automobiles = new ArrayList<>();
+        id_compagnie_garanties = new ArrayList<>();
         initComponents();
         initCB();
         initTable();
@@ -85,10 +93,18 @@ public class MainPanel extends javax.swing.JPanel {
         popup_menu_compagnie_garantie_add = new javax.swing.JMenuItem();
         popup_menu_compagnie_garantie_update = new javax.swing.JMenuItem();
         popup_menu_compagnie_garantie_remove = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        popup_menu_compagnie_garantie_select = new javax.swing.JMenuItem();
+        popup_menu_compagnie_garantie_deselect = new javax.swing.JMenuItem();
+        popup_menu_compagnie_garantie_restor = new javax.swing.JMenuItem();
         popup_automobile = new javax.swing.JPopupMenu();
         popup_menu_automobile_add = new javax.swing.JMenuItem();
         popup_menu_automobile_update = new javax.swing.JMenuItem();
         popup_menu_automobile_remove = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        popup_menu_automobile_select = new javax.swing.JMenuItem();
+        popup_menu_automobile_deselect = new javax.swing.JMenuItem();
+        popup_menu_automobile_restor = new javax.swing.JMenuItem();
         tabbedPane = new javax.swing.JTabbedPane();
         panel_souscripteur = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -162,6 +178,8 @@ public class MainPanel extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         table_nouvelle_saisie_police = new javax.swing.JTable();
+        jLabel16 = new javax.swing.JLabel();
+        textField_nouvelle_saisie_periode = new javax.swing.JTextField();
         panel_sasies = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         textField_sauvegarde_rechercher = new javax.swing.JTextField();
@@ -299,6 +317,31 @@ public class MainPanel extends javax.swing.JPanel {
             }
         });
         popup_compagnie_garantie.add(popup_menu_compagnie_garantie_remove);
+        popup_compagnie_garantie.add(jSeparator3);
+
+        popup_menu_compagnie_garantie_select.setText("Selectionner la garantie");
+        popup_menu_compagnie_garantie_select.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_garantie_selectActionPerformed(evt);
+            }
+        });
+        popup_compagnie_garantie.add(popup_menu_compagnie_garantie_select);
+
+        popup_menu_compagnie_garantie_deselect.setText("Retirer la selection");
+        popup_menu_compagnie_garantie_deselect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_garantie_deselectActionPerformed(evt);
+            }
+        });
+        popup_compagnie_garantie.add(popup_menu_compagnie_garantie_deselect);
+
+        popup_menu_compagnie_garantie_restor.setText("Mettre à zero liste selection");
+        popup_menu_compagnie_garantie_restor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_compagnie_garantie_restorActionPerformed(evt);
+            }
+        });
+        popup_compagnie_garantie.add(popup_menu_compagnie_garantie_restor);
 
         popup_menu_automobile_add.setText("Ajouter automobile");
         popup_menu_automobile_add.addActionListener(new java.awt.event.ActionListener() {
@@ -323,6 +366,31 @@ public class MainPanel extends javax.swing.JPanel {
             }
         });
         popup_automobile.add(popup_menu_automobile_remove);
+        popup_automobile.add(jSeparator2);
+
+        popup_menu_automobile_select.setText("Selectionner pour la saisie");
+        popup_menu_automobile_select.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_automobile_selectActionPerformed(evt);
+            }
+        });
+        popup_automobile.add(popup_menu_automobile_select);
+
+        popup_menu_automobile_deselect.setText("Retirer de la selection saisie");
+        popup_menu_automobile_deselect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_automobile_deselectActionPerformed(evt);
+            }
+        });
+        popup_automobile.add(popup_menu_automobile_deselect);
+
+        popup_menu_automobile_restor.setText("Mettre à zero liste de selection saisie");
+        popup_menu_automobile_restor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popup_menu_automobile_restorActionPerformed(evt);
+            }
+        });
+        popup_automobile.add(popup_menu_automobile_restor);
 
         jLabel1.setText("Rechercher");
 
@@ -541,6 +609,11 @@ public class MainPanel extends javax.swing.JPanel {
         jLabel3.setText("Compagnie");
 
         combo_compagnie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo_compagnie.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_compagnieActionPerformed(evt);
+            }
+        });
 
         table_compagnie_garantie.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -796,6 +869,8 @@ public class MainPanel extends javax.swing.JPanel {
             table_prime.getColumnModel().getColumn(0).setMaxWidth(35);
             table_prime.getColumnModel().getColumn(1).setPreferredWidth(250);
             table_prime.getColumnModel().getColumn(5).setPreferredWidth(200);
+            table_prime.getColumnModel().getColumn(7).setMinWidth(100);
+            table_prime.getColumnModel().getColumn(7).setPreferredWidth(120);
             table_prime.getColumnModel().getColumn(8).setMinWidth(5);
             table_prime.getColumnModel().getColumn(8).setPreferredWidth(5);
             table_prime.getColumnModel().getColumn(8).setMaxWidth(5);
@@ -1039,8 +1114,18 @@ public class MainPanel extends javax.swing.JPanel {
         );
 
         calendar_prise_effet.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Date de prise d'effet"));
+        calendar_prise_effet.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calendar_prise_effetPropertyChange(evt);
+            }
+        });
 
         calendar_echeance.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Date d'echeance"));
+        calendar_echeance.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calendar_echeancePropertyChange(evt);
+            }
+        });
 
         btn_sauvegarder.setText("Sauvegarder");
 
@@ -1088,16 +1173,26 @@ public class MainPanel extends javax.swing.JPanel {
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
         );
 
+        jLabel16.setText("Période ");
+
+        textField_nouvelle_saisie_periode.setEditable(false);
+        textField_nouvelle_saisie_periode.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout panel_nouvelle_sasieLayout = new javax.swing.GroupLayout(panel_nouvelle_sasie);
         panel_nouvelle_sasie.setLayout(panel_nouvelle_sasieLayout);
         panel_nouvelle_sasieLayout.setHorizontalGroup(
             panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_nouvelle_sasieLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(calendar_echeance, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(calendar_prise_effet, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panel_nouvelle_sasieLayout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(18, 18, 18)
+                        .addComponent(textField_nouvelle_saisie_periode, javax.swing.GroupLayout.PREFERRED_SIZE, 391, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1125,9 +1220,12 @@ public class MainPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addGroup(panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_sauvegarder)
-                    .addComponent(btn_sauvegarder_imprimer))
+                .addGroup(panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_nouvelle_sasieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_sauvegarder)
+                        .addComponent(btn_sauvegarder_imprimer))
+                    .addComponent(jLabel16)
+                    .addComponent(textField_nouvelle_saisie_periode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(116, 116, 116))
         );
 
@@ -1380,7 +1478,102 @@ public class MainPanel extends javax.swing.JPanel {
     private void popup_menu_souscripteur_selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_souscripteur_selectActionPerformed
         selection_souscripteur(table_souscripteur.getSelectedRow());
     }//GEN-LAST:event_popup_menu_souscripteur_selectActionPerformed
+
+    private void calendar_prise_effetPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendar_prise_effetPropertyChange
+        updatetableSaisieGarantie();
+    }//GEN-LAST:event_calendar_prise_effetPropertyChange
+
+    private void calendar_echeancePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendar_echeancePropertyChange
+        updatetableSaisieGarantie();
+    }//GEN-LAST:event_calendar_echeancePropertyChange
+
+    private void popup_menu_automobile_restorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_automobile_restorActionPerformed
+        id_automobiles = new ArrayList<>();
+        updatetableSaisieGarantie();
+    }//GEN-LAST:event_popup_menu_automobile_restorActionPerformed
+
+    private void popup_menu_automobile_selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_automobile_selectActionPerformed
+        if (table_automobile.getSelectedRows().length > 0) {
+            if (MainFrame.getMono()) {
+                if (table_automobile.getSelectedRows().length > 1 || id_automobiles.size() == 1) {
+                    mono_information();
+                    return;
+                }
+            }
+
+            for (int index : table_automobile.getSelectedRows()) {
+                if (!id_automobiles.contains(Long.parseLong(table_automobile.getValueAt(index, table_automobile.getColumnCount() - 1).toString()))) {
+                    id_automobiles.add(Long.parseLong(table_automobile.getValueAt(index, table_automobile.getColumnCount() - 1).toString()));
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Automobile(s) selectionné(s) avec success ", "Opération success !", JOptionPane.INFORMATION_MESSAGE);
+            updatetableSaisieGarantie();
+        }
+
+    }//GEN-LAST:event_popup_menu_automobile_selectActionPerformed
+
+    private void popup_menu_automobile_deselectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_automobile_deselectActionPerformed
+        if (table_automobile.getSelectedRows().length > 0) {
+            for (int index : table_automobile.getSelectedRows()) {
+                if (id_automobiles.contains(Long.parseLong(table_automobile.getValueAt(index, table_automobile.getColumnCount() - 1).toString()))) {
+                    id_automobiles.remove(Long.parseLong(table_automobile.getValueAt(index, table_automobile.getColumnCount() - 1).toString()));
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Garantie(s) déselectionné(s) avec success ", "Opération success !", JOptionPane.INFORMATION_MESSAGE);
+            updatetableSaisieGarantie();
+        }
+
+    }//GEN-LAST:event_popup_menu_automobile_deselectActionPerformed
+
+    private void popup_menu_compagnie_garantie_selectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_garantie_selectActionPerformed
+        if (table_compagnie_garantie.getSelectedRows().length > 0) {
+            for (int index : table_compagnie_garantie.getSelectedRows()) {
+                if (!id_compagnie_garanties.contains(Long.parseLong(table_compagnie_garantie.getValueAt(index, table_compagnie_garantie.getColumnCount() - 1).toString()))) {
+                    id_compagnie_garanties.add(Long.parseLong(table_compagnie_garantie.getValueAt(index, table_compagnie_garantie.getColumnCount() - 1).toString()));
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Garantie(s) selectionné(s) avec success ", "Opération success !", JOptionPane.INFORMATION_MESSAGE);
+            updatetableSaisieGarantie();
+        }
+
+    }//GEN-LAST:event_popup_menu_compagnie_garantie_selectActionPerformed
+
+    private void popup_menu_compagnie_garantie_deselectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_garantie_deselectActionPerformed
+        if (table_compagnie_garantie.getSelectedRows().length > 0) {
+            for (int index : table_compagnie_garantie.getSelectedRows()) {
+                if (id_compagnie_garanties.contains(Long.parseLong(table_compagnie_garantie.getValueAt(index, table_compagnie_garantie.getColumnCount() - 1).toString()))) {
+                    id_compagnie_garanties.remove(Long.parseLong(table_compagnie_garantie.getValueAt(index, table_compagnie_garantie.getColumnCount() - 1).toString()));
+                }
+            }
+            JOptionPane.showMessageDialog(this, "Garantie(s) déselectionné(s) avec success ", "Opération success !", JOptionPane.INFORMATION_MESSAGE);
+            updatetableSaisieGarantie();
+        }
+    }//GEN-LAST:event_popup_menu_compagnie_garantie_deselectActionPerformed
+
+    private void popup_menu_compagnie_garantie_restorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popup_menu_compagnie_garantie_restorActionPerformed
+        id_compagnie_garanties = new ArrayList<>();
+        updatetableSaisieGarantie();
+    }//GEN-LAST:event_popup_menu_compagnie_garantie_restorActionPerformed
+
+    private void combo_compagnieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_compagnieActionPerformed
+        id_compagnie = 0;
+        textField_nouvelle_saisie_compagnie.setText("");
+        if (combo_compagnie.getSelectedIndex() > -1) {
+            Compagnie compagnie = getController().getCompagnieController().getCompagnie(combo_compagnie.getSelectedItem().toString());
+            if (compagnie != null) {
+                id_compagnie = compagnie.getId();
+                textField_nouvelle_saisie_compagnie.setText(compagnie.getCompagnie());
+            }
+            id_compagnie_garanties = new ArrayList<>();
+            updatetableSaisieGarantie();
+            updateTableCompagnieGarantie();
+        }
+
+    }//GEN-LAST:event_combo_compagnieActionPerformed
     private long id_souscripteur;
+    private long id_compagnie;
+    private ArrayList<Long> id_automobiles;
+    private ArrayList<Long> id_compagnie_garanties;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_ajouter_souscripteur;
     private javax.swing.JButton btn_mettre_a_jour_souscripteur;
@@ -1411,6 +1604,7 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1428,6 +1622,8 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel panel_automobile;
@@ -1444,11 +1640,17 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JPopupMenu popup_compagnie_police;
     private javax.swing.JPopupMenu popup_garantie;
     private javax.swing.JMenuItem popup_menu_automobile_add;
+    private javax.swing.JMenuItem popup_menu_automobile_deselect;
     private javax.swing.JMenuItem popup_menu_automobile_remove;
+    private javax.swing.JMenuItem popup_menu_automobile_restor;
+    private javax.swing.JMenuItem popup_menu_automobile_select;
     private javax.swing.JMenuItem popup_menu_automobile_update;
     private javax.swing.JMenuItem popup_menu_compagnie_add;
     private javax.swing.JMenuItem popup_menu_compagnie_garantie_add;
+    private javax.swing.JMenuItem popup_menu_compagnie_garantie_deselect;
     private javax.swing.JMenuItem popup_menu_compagnie_garantie_remove;
+    private javax.swing.JMenuItem popup_menu_compagnie_garantie_restor;
+    private javax.swing.JMenuItem popup_menu_compagnie_garantie_select;
     private javax.swing.JMenuItem popup_menu_compagnie_garantie_update;
     private javax.swing.JMenuItem popup_menu_compagnie_police_add;
     private javax.swing.JMenuItem popup_menu_compagnie_police_remove;
@@ -1488,6 +1690,7 @@ public class MainPanel extends javax.swing.JPanel {
     private javax.swing.JTextField textField_nouvelle_saisie_nom_prenom;
     private javax.swing.JTextField textField_nouvelle_saisie_numero_assure;
     private javax.swing.JTextField textField_nouvelle_saisie_numero_telephone;
+    private javax.swing.JTextField textField_nouvelle_saisie_periode;
     private javax.swing.JTextField textField_recherche;
     private javax.swing.JTextField textField_sauvegarde_rechercher;
     // End of variables declaration//GEN-END:variables
@@ -1609,7 +1812,15 @@ public class MainPanel extends javax.swing.JPanel {
     private void updateTableCompagnieGarantie() {
         DefaultTableModel model = (DefaultTableModel) table_compagnie_garantie.getModel();
         model.setRowCount(0);
-        ArrayList<CompagnieGarantie> list = getController().getCompagnieGarantieController().getCompagnieGaranties();
+        if (combo_compagnie.getSelectedIndex() < 0) {
+            return;
+        }
+        long id_compagnie = 0;
+        Compagnie compagnie = getController().getCompagnieController().getCompagnie(combo_compagnie.getSelectedItem().toString());
+        if (compagnie != null) {
+            id_compagnie = compagnie.getId();
+        }
+        ArrayList<CompagnieGarantie> list = getController().getCompagnieGarantieController().getCompagnieGaranties(id_compagnie);
         for (int i = 0; i < list.size(); i++) {
             Object colonne[] = new Object[5];
             colonne[0] = i + 1;
@@ -1618,6 +1829,9 @@ public class MainPanel extends javax.swing.JPanel {
             colonne[3] = list.get(i).getMontant();
             colonne[4] = list.get(i).getId();
             model.addRow(colonne);
+        }
+        if (table_compagnie_garantie.getRowCount() > 0) {
+            table_compagnie_garantie.getColumnModel().getColumn(3).setCellRenderer(NumberRenderer.get_FCFA_render());
         }
         table_compagnie_garantie.setModel(model);
     }
@@ -1940,6 +2154,9 @@ public class MainPanel extends javax.swing.JPanel {
             colonne[8] = list.get(i).getId();
             model.addRow(colonne);
         }
+        if (table_prime.getRowCount() > 0) {
+            table_prime.getColumnModel().getColumn(7).setCellRenderer(NumberRenderer.get_FCFA_render());
+        }
         table_prime.setModel(model);
     }
 
@@ -2096,5 +2313,99 @@ public class MainPanel extends javax.swing.JPanel {
             textField_nouvelle_saisie_numero_telephone.setText(table_souscripteur.getValueAt(row, 5).toString());
             JOptionPane.showMessageDialog(this, "Souscripteur selectionné avec success ", "Opération success !", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    private double calcul_taux_periode() {
+        try {
+            LocalDate date_effet = LocalDate.of(
+                    calendar_prise_effet.getCalendar().get(Calendar.YEAR),
+                    calendar_prise_effet.getCalendar().get(Calendar.MONTH),
+                    calendar_prise_effet.getCalendar().get(Calendar.DAY_OF_MONTH)
+            );
+            LocalDate date_echeance = LocalDate.of(
+                    calendar_echeance.getCalendar().get(Calendar.YEAR),
+                    calendar_echeance.getCalendar().get(Calendar.MONTH),
+                    calendar_echeance.getCalendar().get(Calendar.DAY_OF_MONTH)
+            );
+            Period period = Period.between(date_effet, date_echeance);
+            textField_nouvelle_saisie_periode.setText(period.getDays() + " jour(s), " + period.getMonths() + " mois, " + period.getYears() + " an(s).");
+            if (period.getYears() > 1) {
+                return 0.00;
+            }
+            if (period.getYears() == 1) {
+                return 1.00;
+            }
+            if (period.getMonths() > 9 && period.getMonths() < 12) {
+                return 1.00;
+            }
+            if (period.getMonths() == 9) {
+                return 0.90;
+            }
+            if (period.getMonths() == 8) {
+                return 0.76;
+            }
+            if (period.getMonths() == 7) {
+                return 0.68;
+            }
+            if (period.getMonths() == 6) {
+                return 0.60;
+            }
+            if (period.getMonths() == 5) {
+                return 0.44;
+            }
+            if (period.getMonths() == 4) {
+                return 0.36;
+            }
+            if (period.getMonths() == 3) {
+                return 0.30;
+            }
+            if (period.getMonths() == 2) {
+                return 0.25;
+            }
+            if (period.getMonths() == 1) {
+                return 0.20;
+            }
+            if (period.getDays() > 10 && period.getDays() < 21) {
+                return 0.16;
+            }
+            if (period.getDays() > 5 && period.getDays() < 11) {
+                return 0.12;
+            }
+            if (period.getDays() > 0 && period.getDays() < 6) {
+                return 0.07;
+            }
+        } catch (Exception e) {
+        }
+        return 0.00;
+    }
+
+    private void updatetableSaisieGarantie() {
+        DefaultTableModel model = (DefaultTableModel) table_nouvelle_saisie_garantie.getModel();
+        model.setRowCount(0);
+        for (int i = 0; i < id_automobiles.size(); i++) {
+            Object colonne[] = new Object[4];
+            String message = id_automobiles.size() == 1 ? "" : i + 1 + "";
+            colonne[0] = model.getRowCount() + 1;
+            colonne[1] = "RC " + message;
+            colonne[2] = getController().getTarifController().getTarif(getController().getAutomobileController().getAutomobile(id_automobiles.get(i)).getId_tarif()).getTarif() * calcul_taux_periode();
+            colonne[3] = getController().getAutomobileController().getAutomobile(id_automobiles.get(i)).getId_tarif();
+            model.addRow(colonne);
+        }
+        for (int i = 0; i < id_compagnie_garanties.size(); i++) {
+            Object colonne[] = new Object[4];
+            colonne[0] = model.getRowCount() + 1;
+            colonne[1] = getController().getGarantieController().getGarantie(getController().getCompagnieGarantieController().getCompagnieGarantie(id_compagnie_garanties.get(i)).getId_garantie()).getGarantie();
+            colonne[2] = getController().getCompagnieGarantieController().getCompagnieGarantie(id_compagnie_garanties.get(i)).getMontant();
+            colonne[3] = id_compagnie_garanties.get(i);
+            model.addRow(colonne);
+        }
+        if (table_nouvelle_saisie_garantie.getRowCount() > 0) {
+            table_nouvelle_saisie_garantie.getColumnModel().getColumn(2).setCellRenderer(NumberRenderer.get_FCFA_render());
+        }
+        table_nouvelle_saisie_garantie.setModel(model);
+    }
+
+    private void mono_information() {
+        JOptionPane.showMessageDialog(this, "Impossible de selectionner plus d'une auto en mode mono. ", "Erreur selection !", JOptionPane.ERROR_MESSAGE);
     }
 }
