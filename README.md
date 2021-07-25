@@ -1,6 +1,6 @@
 <img src = "Assurance.JPG" />
 # Assurance
-Logiciel de gestion des assurances
+Logiciel de gestion des assurances automobile pour les compagnies d'assurance
 <h1>Un logiciel de courtage d'assurances</h1>
 <p>Le present logiciel prend en compte tous les éléments necessaires dans la gestion des assurances.</p>
 <ul>
